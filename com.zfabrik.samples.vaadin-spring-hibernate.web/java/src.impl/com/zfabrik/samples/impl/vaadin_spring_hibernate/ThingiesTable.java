@@ -7,14 +7,16 @@ import org.vaadin.addons.lazyquerycontainer.Query;
 import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 import org.vaadin.addons.lazyquerycontainer.QueryFactory;
 
+import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.ui.Table;
 
 @SuppressWarnings("serial")
 public class ThingiesTable extends Table {
 	private LazyQueryContainer data;
 
-	public ThingiesTable() {
+	public ThingiesTable(final ThingiesView thingiesView) {
 		setSizeFull();
+		setImmediate(true);
 		setEditable(true);
 		setSelectable(true);
 		setMultiSelect(true);
@@ -33,6 +35,12 @@ public class ThingiesTable extends Table {
 		setContainerDataSource(this.data);
 		this.data.addContainerProperty("id", Integer.class, null);
 		this.data.addContainerProperty("name", String.class, null);
+		this.data.addListener(new ItemSetChangeListener() {
+			@Override
+			public void containerItemSetChange(ItemSetChangeEvent event) {
+				thingiesView.setModified(data.isModified());
+			}
+		});
 		setVisibleColumns(new String[]{"id","name"});
 	}
 	
