@@ -46,6 +46,7 @@ public class ThingiesQuery implements Query {
 		for (Thingy t : ts) {
 			BeanItem<Thingy> i = new BeanItem<Thingy>(t);
 			i.getItemProperty("id").setReadOnly(true);
+			i.getItemProperty("name").setReadOnly(true);
 			r.add(i);
 		}
 		return r;
