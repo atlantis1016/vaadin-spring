@@ -1,0 +1,11 @@
+# z2 arming indicator file
+LOCAL
+
+# Eclipse output folders
+bin
+gen
+
+# MAC OS X specific
+.DS_Store
+
+
