@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="vaadin-spring-hibernate" version="2.5">
+
+	<display-name>Vaadin-Spring-Hibernate</display-name>
+
+	<context-param>
+		<param-name>productionMode</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<!-- Spring -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- tx filter -->
+	<filter>
+		<filter-name>tx</filter-name>
+		<filter-class>com.zfabrik.samples.impl.vaadin_spring_hibernate.util.TransactionFilter</filter-class>
+	</filter>
+
+	<!-- Vaadin -->
+	<servlet>
+		<servlet-name>VaadinServlet</servlet-name>
+		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet
+		</servlet-class>
+		<init-param>
+			<param-name>application</param-name>
+			<param-value>com.zfabrik.samples.impl.vaadin_spring_hibernate.ApplicationImpl</param-value>
+		</init-param>
+		<!-- this because Vaadin doesn't use the thread's context class loader by default -->
+		<init-param>
+			<param-name>ClassLoader</param-name>
+			<param-value>com.zfabrik.vaadin.ContextClassLoader</param-value>
+		</init-param>
+	</servlet>
+
+	<filter-mapping>
+		<filter-name>tx</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>VaadinServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+</web-app>

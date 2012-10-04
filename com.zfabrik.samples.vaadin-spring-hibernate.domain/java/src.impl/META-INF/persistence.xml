@@ -1,0 +1,29 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"	version="1.0">
+	<persistence-unit name="thingies" transaction-type="JTA">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<jta-data-source>components:com.zfabrik.samples.vaadin-spring-hibernate.domain/DB</jta-data-source>
+
+		<!-- 
+		If the entity is declared in the same loader as persistence.xml this is not required. Neither
+		is it required when configuring the PU using pure Spring
+		 -->
+		<class>com.zfabrik.samples.vaadin_spring_hibernate.thingies.Thingy</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.jdbc.batch_size" value="10" />
+			<property name="hibernate.cache.use_second_level_cache"	value="false" />
+			<property name="hibernate.transaction.manager_lookup_class" value="com.zfabrik.hibernate.TransactionManagerLookup" />
+			<!-- 
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.show_sql" value="true" />
+             -->
+		</properties>
+
+	</persistence-unit>
+</persistence>
