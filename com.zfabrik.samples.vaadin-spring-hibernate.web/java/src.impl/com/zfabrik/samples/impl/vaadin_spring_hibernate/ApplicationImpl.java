@@ -20,6 +20,12 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
+/**
+ * Vaadin's main application class. Builds the main window. Takes care of global error handling.
+ * 
+ * @author hb
+ *
+ */
 @SuppressWarnings("serial")
 public class ApplicationImpl extends Application implements HttpServletRequestListener {
 	// keep the current application instance on the thread
@@ -68,10 +74,6 @@ public class ApplicationImpl extends Application implements HttpServletRequestLi
 		}});
 	}
 	
-	public static ApplicationImpl current() {
-		return current.get();
-	}
-	
 	// unhandled errors end up here
 	public void terminalError(Terminal.ErrorEvent event) {
 		// roll back the current tx
@@ -100,16 +102,14 @@ public class ApplicationImpl extends Application implements HttpServletRequestLi
 	// track current 
 	@Override
 	public void onRequestStart(HttpServletRequest request,HttpServletResponse response) {
-		current.set(this);
 		if (request.getLocale()!=null) {
+			// set the app's locale
 			this.setLocale(request.getLocale());
 		}
 	}	
 
 	@Override
-	public void onRequestEnd(HttpServletRequest request,HttpServletResponse response) {
-		current.set(null);
-	}
+	public void onRequestEnd(HttpServletRequest request,HttpServletResponse response) {}
 	
 	private final static Logger logger = Logger.getLogger(ApplicationImpl.class.getName());
 

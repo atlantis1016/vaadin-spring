@@ -7,8 +7,15 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * A view showing thingies in a table and offering some modifying actions
+ * 
+ * @author hb
+ */
 @SuppressWarnings("serial")
 public class ThingiesView extends VerticalLayout {
+
+	// a label indicating pending modifications
 	private Label modified = new Label();
 
 	public ThingiesView() {
@@ -39,7 +46,7 @@ public class ThingiesView extends VerticalLayout {
 					}
 				});
 			}});
-			addComponent(new Button("save changes") {{
+			addComponent(new Button("save") {{
 				addListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
@@ -47,7 +54,7 @@ public class ThingiesView extends VerticalLayout {
 					}
 				});
 			}});
-			addComponent(new Button("discard changes") {{
+			addComponent(new Button("discard") {{
 				addListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
@@ -73,7 +80,7 @@ public class ThingiesView extends VerticalLayout {
 	
 	// update modified state
 	public void setModified(boolean modified) {
-		this.modified.setValue(modified? "Press \"save changes\" to persist or \"discard changes\" to discard pending modifications":"");
+		this.modified.setValue(modified? "Press \"save\" to persist or \"discard\" to discard pending modifications":"");
 	}
 	
 }
