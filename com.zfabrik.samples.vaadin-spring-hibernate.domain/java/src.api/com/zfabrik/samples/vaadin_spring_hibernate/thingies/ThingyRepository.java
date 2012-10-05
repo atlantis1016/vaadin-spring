@@ -11,10 +11,16 @@ package com.zfabrik.samples.vaadin_spring_hibernate.thingies;
 
 import java.util.Collection;
 
+/**
+ * A repository of thingies 
+ * 
+ * @author hb
+ *
+ */
 public interface ThingyRepository {
 
 	/**
-	 * Store a new Thingy
+	 * Store a new thingy
 	 */
 	void store(Thingy thingy);
 	

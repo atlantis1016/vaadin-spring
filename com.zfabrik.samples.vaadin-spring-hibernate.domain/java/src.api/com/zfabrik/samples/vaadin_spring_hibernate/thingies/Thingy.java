@@ -16,6 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * A thingy. Just a name with an id.
+ * 
+ * @author hb
+ *
+ */
 @Entity
 @Table(name="thingies")
 public class Thingy {
