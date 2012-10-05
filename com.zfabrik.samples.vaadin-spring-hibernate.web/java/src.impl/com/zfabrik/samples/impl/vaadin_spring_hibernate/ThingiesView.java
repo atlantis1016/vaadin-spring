@@ -1,3 +1,12 @@
+/*
+ * z2-Environment
+ * 
+ * Copyright(c) 2010, 2011, 2012 ZFabrik Software KG
+ * 
+ * contact@zfabrik.de
+ * 
+ * http://www.z2-environment.eu
+ */
 package com.zfabrik.samples.impl.vaadin_spring_hibernate;
 
 import com.vaadin.ui.Alignment;
