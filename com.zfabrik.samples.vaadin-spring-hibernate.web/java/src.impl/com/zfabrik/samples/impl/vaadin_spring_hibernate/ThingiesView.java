@@ -39,7 +39,7 @@ public class ThingiesView extends VerticalLayout {
 		// add some buttons
 		Component buttons = new HorizontalLayout(){{
 			setSpacing(true);
-			addComponent(new Button("new") {{
+			addComponent(new Button("add") {{
 				addListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
@@ -55,7 +55,7 @@ public class ThingiesView extends VerticalLayout {
 					}
 				});
 			}});
-			addComponent(new Button("save") {{
+			addComponent(new Button("save changes") {{
 				addListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
@@ -63,15 +63,7 @@ public class ThingiesView extends VerticalLayout {
 					}
 				});
 			}});
-			addComponent(new Button("discard") {{
-				addListener(new ClickListener() {
-					@Override
-					public void buttonClick(ClickEvent event) {
-						t.discardThingyUpdates();
-					}
-				});
-			}});
-			addComponent(new Button("reload") {{
+			addComponent(new Button("discard & reload") {{
 				addListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
@@ -89,7 +81,7 @@ public class ThingiesView extends VerticalLayout {
 	
 	// update modified state
 	public void setModified(boolean modified) {
-		this.modified.setValue(modified? "Press \"save\" to persist or \"discard\" to discard pending modifications":"");
+		this.modified.setValue(modified? "There are non-persistent modifications":"");
 	}
 	
 }

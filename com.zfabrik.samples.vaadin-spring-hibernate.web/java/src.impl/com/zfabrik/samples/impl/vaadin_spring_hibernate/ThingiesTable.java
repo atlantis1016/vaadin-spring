@@ -90,12 +90,6 @@ public class ThingiesTable extends Table {
 	}
 
 	// called from view
-	public void discardThingyUpdates() {
-		this.discard();
-		this.data.discard();
-	}
-
-	// called from view
 	@SuppressWarnings("unchecked")
 	public void deleteSelectedThingies() {
 		Set<Object> selected = (Set<Object>) this.getValue();
