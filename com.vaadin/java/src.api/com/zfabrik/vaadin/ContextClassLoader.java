@@ -21,6 +21,8 @@ import java.util.Enumeration;
  * So, in order to load your application class by Vaadin but from a referencing module
  * (i.e. one Vaadin doesn't see), you may use this classloader by declaring it in the 
  * web.xml.
+ * <p>
+ * See also <a href="http://dev.vaadin.com/ticket/9809">Enhancement #9809</a>
  * 
  * @author hb
  *
