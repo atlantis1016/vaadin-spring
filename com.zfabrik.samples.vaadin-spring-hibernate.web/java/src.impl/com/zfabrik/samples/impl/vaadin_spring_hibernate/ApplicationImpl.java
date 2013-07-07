@@ -37,12 +37,9 @@ import com.vaadin.ui.Window.Notification;
  */
 @SuppressWarnings("serial")
 public class ApplicationImpl extends Application implements HttpServletRequestListener {
-	// keep the current application instance on the thread
-	private static ThreadLocal<ApplicationImpl> current = new ThreadLocal<ApplicationImpl>();
 	
 	@Override
 	public void init() {
-		current.set(this);
 		setTheme("sample");
 		setMainWindow(new Window() {{
 			setCaption("Vaadin-Hibernate-Spring Sample");
@@ -66,7 +63,7 @@ public class ApplicationImpl extends Application implements HttpServletRequestLi
 					Component main = new Panel() {{
 						setSizeFull();
 						getContent().setSizeFull();
-						addComponent(new ThingiesView());
+						addComponent(new ThingiesView(ApplicationImpl.this));
 					}};
 					addComponent(main);
 					setExpandRatio(main, 1);

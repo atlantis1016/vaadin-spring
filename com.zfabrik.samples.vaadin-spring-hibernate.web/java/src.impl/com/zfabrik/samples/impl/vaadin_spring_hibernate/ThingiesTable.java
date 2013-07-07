@@ -18,7 +18,6 @@ import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 import org.vaadin.addons.lazyquerycontainer.QueryFactory;
 import org.vaadin.addons.lazyquerycontainer.QueryItemStatus;
 
-import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.ui.Field;
