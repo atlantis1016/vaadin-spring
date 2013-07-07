@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.Application;
+import com.vaadin.terminal.ClassResource;
 import com.vaadin.ui.Button;
 import com.zfabrik.samples.vaadin_spring_hibernate.thingies.Thingy;
 import com.zfabrik.samples.vaadin_spring_hibernate.thingies.ThingyRepository;
@@ -25,6 +26,7 @@ public class SomethingAboutThingies extends Button {
 	@SuppressWarnings("serial")
 	public SomethingAboutThingies(Application application) {
 		setCaption("About these...");
+		setIcon(new ClassResource(SomethingAboutThingies.class, "/mimes/information.png", application));
 		addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {

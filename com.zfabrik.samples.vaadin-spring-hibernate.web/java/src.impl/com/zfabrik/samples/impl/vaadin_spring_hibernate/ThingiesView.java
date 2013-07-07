@@ -27,7 +27,7 @@ import com.zfabrik.vaadin.ExtensionComponentsUtil;
 public class ThingiesView extends VerticalLayout {
 
 	// a label indicating pending modifications
-	private Label modified = new Label();
+	private Label modified = new Label("&nbsp;",Label.CONTENT_XHTML);
 
 	public ThingiesView(Application application) {
 		setSizeFull();
@@ -91,7 +91,7 @@ public class ThingiesView extends VerticalLayout {
 	
 	// update modified state
 	public void setModified(boolean modified) {
-		this.modified.setValue(modified? "There are non-persistent modifications":"");
+		this.modified.setValue(modified? "There are non-persistent modifications":"&nbsp;");
 	}
 	
 }
