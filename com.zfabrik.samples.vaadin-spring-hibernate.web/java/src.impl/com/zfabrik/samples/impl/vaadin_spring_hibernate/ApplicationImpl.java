@@ -70,7 +70,7 @@ public class ApplicationImpl extends Application implements HttpServletRequestLi
 					
 					Component footer = new HorizontalLayout() {{
 						addStyleName("sample-main-footer");
-						addComponent(new Label("(c) 2012 ZFabrik Software KG"));
+						addComponent(new Label("(c) 2013 ZFabrik Software KG"));
 					}};
 					addComponent(footer);
 					setExpandRatio(footer, 0);
