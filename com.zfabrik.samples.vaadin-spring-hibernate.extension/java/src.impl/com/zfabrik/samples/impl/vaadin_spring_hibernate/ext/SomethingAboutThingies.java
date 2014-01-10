@@ -3,9 +3,10 @@ package com.zfabrik.samples.impl.vaadin_spring_hibernate.ext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.ClassResource;
+import com.vaadin.server.ClassResource;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.zfabrik.samples.vaadin_spring_hibernate.thingies.Thingy;
 import com.zfabrik.samples.vaadin_spring_hibernate.thingies.ThingyRepository;
 
@@ -24,10 +25,10 @@ public class SomethingAboutThingies extends Button {
 	private ThingyRepository thingies;
 	
 	@SuppressWarnings("serial")
-	public SomethingAboutThingies(Application application) {
+	public SomethingAboutThingies(UI application) {
 		setCaption("About these...");
-		setIcon(new ClassResource(SomethingAboutThingies.class, "/mimes/information.png", application));
-		addListener(new ClickListener() {
+		setIcon(new ClassResource(SomethingAboutThingies.class, "/mimes/information.png"));
+		addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// read all thingies and count
@@ -38,7 +39,7 @@ public class SomethingAboutThingies extends Button {
 					cou ++;
 				}
 				// say what we found
-				getWindow().showNotification(String.format("Found %d thingies with a total of %d characters", cou,sum));
+				Notification.show(String.format("Found %d thingies with a total of %d characters", cou,sum));
 			}
 		});
 	}

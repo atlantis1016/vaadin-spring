@@ -9,12 +9,13 @@
  */
 package com.zfabrik.samples.impl.vaadin_spring_hibernate;
 
-import com.vaadin.Application;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.zfabrik.vaadin.ExtensionComponentsUtil;
 
@@ -27,9 +28,9 @@ import com.zfabrik.vaadin.ExtensionComponentsUtil;
 public class ThingiesView extends VerticalLayout {
 
 	// a label indicating pending modifications
-	private Label modified = new Label("&nbsp;",Label.CONTENT_XHTML);
+	private Label modified = new Label("&nbsp;",ContentMode.HTML);
 
-	public ThingiesView(Application application) {
+	public ThingiesView(UI application) {
 		setSizeFull();
 		setMargin(false);
 		setSpacing(true);
@@ -42,7 +43,7 @@ public class ThingiesView extends VerticalLayout {
 		HorizontalLayout buttons = new HorizontalLayout(){{
 			setSpacing(true);
 			addComponent(new Button("add") {{
-				addListener(new ClickListener() {
+				addClickListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						t.addNewThingy();
@@ -50,7 +51,7 @@ public class ThingiesView extends VerticalLayout {
 				});
 			}});
 			addComponent(new Button("delete selected") {{
-				addListener(new ClickListener() {
+				addClickListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						t.deleteSelectedThingies();
@@ -58,7 +59,7 @@ public class ThingiesView extends VerticalLayout {
 				});
 			}});
 			addComponent(new Button("save changes") {{
-				addListener(new ClickListener() {
+				addClickListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						t.storeThingyUpdates();
@@ -66,7 +67,7 @@ public class ThingiesView extends VerticalLayout {
 				});
 			}});
 			addComponent(new Button("discard & reload") {{
-				addListener(new ClickListener() {
+				addClickListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						t.reload();

@@ -14,20 +14,19 @@ import java.util.logging.Logger;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.Terminal;
-import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
+import com.vaadin.server.DefaultErrorHandler;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.Notification;
 
 /**
  * Vaadin's main application class. Builds the main window. Takes care of global error handling.
@@ -36,87 +35,84 @@ import com.vaadin.ui.Window.Notification;
  *
  */
 @SuppressWarnings("serial")
-public class ApplicationImpl extends Application implements HttpServletRequestListener {
+@Theme("sample")
+@Title("Vaadin-Hibernate-Spring Sample")
+public class ApplicationImpl extends UI {
 	
 	@Override
-	public void init() {
-		setTheme("sample");
-		setMainWindow(new Window() {{
-			setCaption("Vaadin-Hibernate-Spring Sample");
-			setSizeFull();
-			// set up a main layout 
-			setContent(
-				new VerticalLayout() {{
-					addStyleName("sample-main");
-					setMargin(false);
-					setSpacing(false);
-					setSizeFull();
-					
-					Component header = new HorizontalLayout() {{
-						addStyleName("sample-main-header");
-						setHeight("40px");
-						addComponent(new Label("Vaadin-Spring-Hibernate Thingies"));
-					}};
-					addComponent(header);
-					setExpandRatio(header, 0);
-					
-					Component main = new Panel() {{
-						setSizeFull();
-						getContent().setSizeFull();
-						addComponent(new ThingiesView(ApplicationImpl.this));
-					}};
-					addComponent(main);
-					setExpandRatio(main, 1);
-					
-					Component footer = new HorizontalLayout() {{
-						addStyleName("sample-main-footer");
-						addComponent(new Label("(c) 2013 ZFabrik Software KG"));
-					}};
-					addComponent(footer);
-					setExpandRatio(footer, 0);
-				}
-			});
-			
-		}});
-	}
-	
-	// unhandled errors end up here
-	public void terminalError(Terminal.ErrorEvent event) {
-		// roll back the current tx
-		try {
-			UserTransaction ut = getUserTransaction();
-			ut.setRollbackOnly();
-		} catch (Exception e) {
-			logger.log(Level.SEVERE,"Failed to set roll back only",e);
-			throw new RuntimeException("Failed to set roll back only",e);
+	protected void init(VaadinRequest request) {
+		
+		if (request.getLocale()!=null) {
+			// set the app's locale
+			this.setLocale(request.getLocale());
 		}
 		
-	    if (getMainWindow() != null) {
-	        getMainWindow().showNotification(
-                "Sorry! An application error occurred and was logged.",
-                "("+event.getThrowable().getMessage()+")",
-                Notification.TYPE_ERROR_MESSAGE);
-	    }
-	    logger.log(Level.WARNING,"Application Error",event.getThrowable());
+		UI.getCurrent().setErrorHandler(new DefaultErrorHandler(){
+			public void error(com.vaadin.server.ErrorEvent event) {
+				try {
+					UserTransaction ut = getUserTransaction();
+					ut.setRollbackOnly();
+					
+				} catch (Exception e) {
+					logger.log(Level.SEVERE,"Failed to set roll back only",e);
+					throw new RuntimeException("Failed to set roll back only",e);
+				}
+				
+				Notification.show(
+		                "Sorry! An application error occurred and was logged.",
+		                "("+event.getThrowable().getMessage()+")",
+		                Notification.Type.ERROR_MESSAGE
+		        );
+			    
+			    logger.log(Level.WARNING,"Application Error",event.getThrowable());
+			}
+		});
+		
+		// set up a main layout 
+		setContent(getMainLayout());
+			
 	}
+	
+	private Component getMainLayout() {
+		return 
+			new VerticalLayout() {{
+				addStyleName("sample-main");
+				setMargin(false);
+				setSpacing(false);
+				setSizeFull();
+				
+				Component header = new HorizontalLayout() {{
+					addStyleName("sample-main-header");
+					setHeight("60px");
+					addComponent(new Label("Vaadin-Spring-Hibernate Thingies"));
+				}};
+				addComponent(header);
+				setExpandRatio(header, 0);
+				
+				Component main = new Panel() {{
+					setSizeFull();
+					setContent(new ThingiesView(ApplicationImpl.this));
+					getContent().setSizeFull();
+					
+				}};
+				addComponent(main);
+				setExpandRatio(main, 1);
+				
+				Component footer = new HorizontalLayout() {{
+					addStyleName("sample-main-footer");
+					addComponent(new Label("(c) 2013 ZFabrik Software KG"));
+				}};
+				addComponent(footer);
+				setExpandRatio(footer, 0);
+			}};
+	}
+	
 
 	private UserTransaction getUserTransaction() throws NamingException {
 		UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
 		return ut;
 	}
 
-	// track current 
-	@Override
-	public void onRequestStart(HttpServletRequest request,HttpServletResponse response) {
-		if (request.getLocale()!=null) {
-			// set the app's locale
-			this.setLocale(request.getLocale());
-		}
-	}	
-
-	@Override
-	public void onRequestEnd(HttpServletRequest request,HttpServletResponse response) {}
-	
 	private final static Logger logger = Logger.getLogger(ApplicationImpl.class.getName());
 
 }

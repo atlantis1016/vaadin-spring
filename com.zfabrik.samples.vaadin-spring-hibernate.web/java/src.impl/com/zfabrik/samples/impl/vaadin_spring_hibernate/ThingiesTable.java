@@ -45,14 +45,13 @@ public class ThingiesTable extends Table {
 			// we use an inline query factory
 			new QueryFactory() {
 				@Override
-				public void setQueryDefinition(QueryDefinition arg0) {}
-				@Override
-				public Query constructQuery(Object[] sortProperties, boolean[] sortOrder) {
-					return new ThingiesQuery(sortProperties,sortOrder);
+				public Query constructQuery(QueryDefinition qd) {
+					return new ThingiesQuery(qd.getDefaultSortPropertyIds(), qd.getSortPropertyAscendingStates());
 				}
 			},
-			false,
-			100
+			null, 
+			100,
+			false
 		);
 		setContainerDataSource(this.data);
 		
@@ -60,19 +59,19 @@ public class ThingiesTable extends Table {
 		this.data.addContainerProperty("id", Integer.class, null);
 		this.data.addContainerProperty("name", String.class, null);
 		
-		this.data.addListener(new ItemSetChangeListener() {
+		this.data.addItemSetChangeListener(new ItemSetChangeListener() {
 			@Override
 			public void containerItemSetChange(ItemSetChangeEvent event) {
 				// tell the view about our modification status
 				thingiesView.setModified(data.isModified());
 			}
 		});
-		setVisibleColumns(new String[]{"id","name"});
+		setVisibleColumns(new Object[]{"id","name"});
 	}
 
 	// overwrite some visualization to represented pending removed rows appropriately
 	@Override
-	protected void bindPropertyToField(Object rowId, Object colId,Property property, Field field) {
+	protected void bindPropertyToField(Object rowId, Object colId, Property property, Field field) {
 		Item i = getItem(rowId);
 		if (i!=null) {
 			// disabled fields for deleted items

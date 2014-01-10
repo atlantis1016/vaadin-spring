@@ -1,4 +1,4 @@
-@import "../reindeer/styles.css";
+@import "../reindeer/legacy-styles.css";
 
 /* set margin for main vertical layout */
 .v-verticallayout-sample-main > div > div > div.v-verticallayout-margin {
@@ -8,11 +8,15 @@
 /* header  */
 .sample-main-header {
 	background: url(mimes/be_powered.png) no-repeat;
-	font-size: 15pt;
 	padding-left: 200px;
-	padding-top: 1em;
 	color: #808080;
 }
+
+.sample-main-header .v-label {
+	font-size: 15pt;
+	line-height: 3em; 
+}
+
 
 /* footer */
 .sample-main-footer {
