@@ -1,7 +1,8 @@
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"	version="1.0">
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
 	<persistence-unit name="thingies" transaction-type="JTA">
 
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<jta-data-source>components:com.zfabrik.samples.vaadin-spring-hibernate.domain/DB</jta-data-source>
 
@@ -18,11 +19,8 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.jdbc.batch_size" value="10" />
 			<property name="hibernate.cache.use_second_level_cache"	value="false" />
-			<property name="hibernate.transaction.manager_lookup_class" value="com.zfabrik.hibernate.TransactionManagerLookup" />
-			<!-- 
-            <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.show_sql" value="true" />
-             -->
+			<property name="hibernate.transaction.jta.platform" value="com.zfabrik.hibernate.Z2JtaPlatform"/> 
+
 		</properties>
 
 	</persistence-unit>

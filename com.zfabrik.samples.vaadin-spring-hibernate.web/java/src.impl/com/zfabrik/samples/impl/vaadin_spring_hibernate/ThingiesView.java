@@ -32,7 +32,7 @@ public class ThingiesView extends VerticalLayout {
 
 	public ThingiesView(UI application) {
 		setSizeFull();
-		setMargin(false);
+		setMargin(true);
 		setSpacing(true);
 		
 		final ThingiesTable t = new ThingiesTable(this);

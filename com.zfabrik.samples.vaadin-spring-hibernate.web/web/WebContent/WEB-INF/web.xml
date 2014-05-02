@@ -28,7 +28,7 @@
 
 	    <init-param>
 	      <param-name>UI</param-name>
-			<param-value>com.zfabrik.samples.impl.vaadin_spring_hibernate.ApplicationImpl</param-value>
+			<param-value>com.zfabrik.samples.impl.vaadin_spring_hibernate.UIImpl</param-value>
 		</init-param>
 		<!-- this because Vaadin doesn't use the thread's context class loader by default -->
 		<init-param>

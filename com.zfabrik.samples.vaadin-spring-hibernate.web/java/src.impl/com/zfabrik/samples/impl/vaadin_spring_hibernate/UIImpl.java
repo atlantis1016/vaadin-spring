@@ -37,7 +37,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @Theme("sample")
 @Title("Vaadin-Hibernate-Spring Sample")
-public class ApplicationImpl extends UI {
+public class UIImpl extends UI {
 	
 	@Override
 	protected void init(VaadinRequest request) {
@@ -91,7 +91,7 @@ public class ApplicationImpl extends UI {
 				
 				Component main = new Panel() {{
 					setSizeFull();
-					setContent(new ThingiesView(ApplicationImpl.this));
+					setContent(new ThingiesView(UIImpl.this));
 					getContent().setSizeFull();
 					
 				}};
@@ -113,6 +113,6 @@ public class ApplicationImpl extends UI {
 		return ut;
 	}
 
-	private final static Logger logger = Logger.getLogger(ApplicationImpl.class.getName());
+	private final static Logger logger = Logger.getLogger(UIImpl.class.getName());
 
 }
