@@ -1,7 +1,7 @@
 /*
  * z2-Environment
  * 
- * Copyright(c) 2010, 2011, 2012 ZFabrik Software KG
+ * Copyright(c) ZFabrik Software GmbH & Co. KG
  * 
  * contact@zfabrik.de
  * 
